@@ -34,30 +34,22 @@ class Bot:
     def get_move(self, state):
 
         moves = state.moves()
-        chosen_move = moves[0]
+        best_move = moves[0]
 
-        moves_best_non_trump = []
-        randomise_moves = []
+        non_trump_moves = []
 
         if random.random() < self.__non_trump_move:
+            best_move = best_non_trump_card(state)
+            return  best_move
 
-            for i, move in enumerate(moves):
-                 if move[0] is not None and move[0] == best_non_trump_card(state):
-                    moves_best_non_trump.append(move)
+        moves.remove(best_move)
+        if not moves:
+            return (None,None)
 
-            if len(moves_best_non_trump) > 0:
-                chosen_move = moves_best_non_trump[0]
-                return chosen_move
+        else:
+            return random.choice(moves)
 
-        for i, move in enumerate(moves):
-            for j, moves in enumerate(moves_best_non_trump):
-                if move[0] is not None and move[0] !=  moves[0]:
-                    randomise_moves.append(move)
 
-        if len(randomise_moves) > 0:
-            chosen_move = random.choice(randomise_moves)
-
-        return chosen_move
 
 
 
@@ -105,7 +97,7 @@ random.seed(seed)
 
 # Parameters of our experiment
 STEPS = 10
-REPEATS = 5
+REPEATS = 1000
 
 inc = 1.0/STEPS
 
