@@ -4,11 +4,7 @@
 
 """
 
-<<<<<<< HEAD
-from api import State, util,Deck
-=======
-from api import State, util
->>>>>>> edit-heuristic
+from api import State, util, Deck
 import random
 
 class Bot:

@@ -80,9 +80,26 @@ def load_player(name, classname='Bot'):
     return player
 
 def ratio_points(state, player):
-	if state.get_points(player) + state.get_points(other(player)) != 0:
-		return state.get_points(player) / float((state.get_points(player) + state.get_points(other(player))))
-	return 0
+    if state.get_points(player) + state.get_points(other(player)) != 0:
+        return state.get_points(player) / float((state.get_points(player) + state.get_points(other(player))))
+    return 0
+
+def get_number_trumps_or_ace(state,Deck):
+
+    moves = state.moves()
+
+    util_point = 0
+
+    for index,move in enumerate(moves):
+        if move[0] is not None and Deck.get_suit(move[0]) == state.get_trump_suit():
+            util_point += 1
+
+        elif move[0] is not None and  move[0] % 5 == 0:
+            util_point += 1
+
+    return util_point/ len(moves)
+
+
 
 def difference_points(state, player):
     return state.get_points(player) - state.get_points(other(player))
