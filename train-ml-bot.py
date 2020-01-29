@@ -19,11 +19,12 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.externals import joblib
 
 from bots.rand import rand
-# from bots.rdeep import rdeep
+from bots.rdeep import rdeep
+from bots.mybot import  mybot
 
 from bots.ml.ml import features
 
-def create_dataset(path, player=rand.Bot(), games=2000, phase=1):
+def create_dataset(path, player=mybot.Bot(), games=2000, phase=1):
 
     data = []
     target = []
@@ -107,7 +108,7 @@ parser.add_argument("--no-train",
 options = parser.parse_args()
 
 if options.overwrite or not os.path.isfile(options.dset_path):
-    create_dataset(options.dset_path, player=rand.Bot(), games=10000)
+    create_dataset(options.dset_path, player=mybot.Bot(), games=10000)
 
 if options.train:
 
@@ -137,8 +138,8 @@ if options.train:
         data, target = pickle.load(output)
 
     # Train a neural network
-    learner = MLPClassifier(hidden_layer_sizes=hidden_layer_sizes, learning_rate_init=learning_rate, alpha=regularization_strength, verbose=True, early_stopping=True, n_iter_no_change=6)
-    # learner = sklearn.linear_model.LogisticRegression()
+    #learner = MLPClassifier(hidden_layer_sizes=hidden_layer_sizes, learning_rate_init=learning_rate, alpha=regularization_strength, verbose=True, early_stopping=True, n_iter_no_change=6)
+    learner = sklearn.linear_model.LogisticRegression()
 
     model = learner.fit(data, target)
 

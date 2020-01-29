@@ -95,7 +95,7 @@ def get_number_trumps_or_ace(state,Deck):
             util_point += 1
 
         if move[0] is not None and  move[0] % 5 == 0:
-            util_point += 1
+            util_point += 0.5
 
     return util_point/ len(moves)
 
